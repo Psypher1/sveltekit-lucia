@@ -18,6 +18,7 @@ export const lucia = new Lucia(dbAdapter, {
 
 	getUserAttributes: (attributes) => {
 		return {
+            // return more attributes from db
 			name: attributes.name,
 			email: attributes.email
 		};
