@@ -1,26 +1,37 @@
-import { sql } from 'drizzle-orm';
-import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
+import { sql } from "drizzle-orm";
+import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
-export const usersTable = sqliteTable('users', {
-	id: text('id').primaryKey().notNull(),
+export const usersTable = sqliteTable("users", {
+	id: text("id").primaryKey().notNull(),
 
-	name: text('name').notNull(),
-	email: text('email').notNull().unique(),
-	password: text('password').notNull(),
+	name: text("name").notNull(),
+	email: text("email").notNull().unique(),
+	password: text("password").notNull(),
 
-    userType: text('user_type').notNull().default(sql`'user'`),
+	userType: text("user_type")
+		.notNull()
+		.default(sql`'user'`),
 
-	createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`)
+	createdAt: text("created_at").default(sql`CURRENT_TIMESTAMP`)
 });
 
-export const usersSessionsTable = sqliteTable('users_sessions', {
-	id: text('id').primaryKey().notNull(),
+export const usersSessionsTable = sqliteTable("users_sessions", {
+	id: text("id").primaryKey().notNull(),
 
-	userId: text('user_id')
+	userId: text("user_id")
 		.notNull()
 		.references(() => usersTable.id),
 
-	expiresAt: integer('expires_at').notNull()
+	expiresAt: integer("expires_at").notNull()
+});
+
+export const eventsTable = sqliteTable("events", {
+	id: text("id").primaryKey().notNull(),
+
+	name: text("name").notNull(),
+	description: text("description").notNull(),
+	eventDate: text("event_date").notNull(),
+	tickets: integer("tickets").notNull()
 });
 
 export type UserInsertSchema = typeof usersTable.$inferInsert;
