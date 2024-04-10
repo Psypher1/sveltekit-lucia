@@ -1,4 +1,4 @@
-import { redirect, type Handle } from "@sveltejs/kit";
+import { redirect } from "@sveltejs/kit";
 import { lucia } from "$lib/database/auth.server";
 
 // export const handle: Handle = async ({ event, resolve }) => {
@@ -47,7 +47,7 @@ export async function handle({ event, resolve }) {
 		});
 	}
 
-	const AUTH_ROUTES = ["/login", "/register"];
+	const AUTH_ROUTES = ["/auth/login", "/auth/register"];
 	const DASHBOARD_ROUTE = "/dashboard";
 	// If a user is logged in and attempts to access the login or register page, redirect them to the dashboard
 	if (session && AUTH_ROUTES.includes(event.url.pathname)) {
